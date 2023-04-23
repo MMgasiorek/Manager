@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\EmployeerRepository;
 use App\Repositories\VisitRepository;
 use App\Models\Employeer;
-use App\Models\Visit;
+use App\Http\Requests\ValidationClass;
 
 class EmployeerController extends Controller
 {
@@ -17,7 +17,7 @@ class EmployeerController extends Controller
         return view('admin.studio.employees.list' , ['employees' => $employees]);
     }
 
-    public function show(EmployeerRepository $employeerRepo, VisitRepository $visitRepo, $id)
+    public function show(EmployeerRepository $employeerRepo, VisitRepository $visitRepo, int $id)
     {
         $employeer = $employeerRepo->find($id);
         $visits = $visitRepo->visits_list_by_employeer($id);
@@ -25,21 +25,16 @@ class EmployeerController extends Controller
         $total_money = $visitRepo->total_amount_by_employeer($id);
         $total_time = $visitRepo->total_time_by_employeer($id);
 
-        return view('admin.studio.employees.profile' , ['employeer' => $employeer ,
-                                                        'visits' => $visits ,
-                                                        'total_tattoo' => $total_tattoo ,
-                                                        'total_money' => $total_money ,
-                                                        'total_time' => $total_time]);
+        return view('admin.studio.employees.profile', compact('employeer',
+                                                              'visits',
+                                                              'total_tattoo',
+                                                              'total_money',
+                                                              'total_time'));                                                    
     }
 
-    public function create(Request $request)
+    public function create(ValidationClass $request)
     {
-        $request->validate([
-            'name'=> 'required',
-            'surname'=> 'required',
-            'email'=> 'required',
-            'phone'=> 'required',
-        ]);
+        $request->validated();
 
         $employeer = new Employeer;
         
@@ -53,7 +48,7 @@ class EmployeerController extends Controller
         return back()->with('success','New employeer added');
     }
 
-    public function edit(EmployeerRepository $employeerRepo, $id)
+    public function edit(EmployeerRepository $employeerRepo, int $id)
     {
         $employeer = $employeerRepo->find($id);
 
@@ -74,9 +69,9 @@ class EmployeerController extends Controller
         return back()->with('success','Edited correctly');
     }
 
-    public function delete(EmployeerRepository $employeerRepo, $id) 
+    public function delete(EmployeerRepository $employeerRepo, int $id) 
     {
-        $employeer = $employeerRepo->delete($id);
+        $employeerRepo->delete($id);
 
         return back()->with('success','Removed correctly');
     }

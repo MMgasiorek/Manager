@@ -8,16 +8,12 @@ use App\Models\Client;
 use App\Models\Accessory;
 use App\Repositories\VisitRepository;
 use App\Repositories\EmployeerRepository;
+use App\Http\Requests\ValidationClass;
 
 use PDF;
 
 class ReportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
     public function index(VisitRepository $visitRepo)
     {
@@ -25,17 +21,12 @@ class ReportController extends Controller
         $time = $visitRepo->total_time();
         $visits = $visitRepo->total_visits();
 
-        return view('admin.reports.index' , ['amount' => $amount,
-                                             'time' => $time,
-                                             'visits' => $visits,]);
+        return view('admin.reports.index', compact('amount', 'time', 'visits'));                                            
     }
 
-    public function mainReport(Request $request, VisitRepository $visitRepo)
+    public function mainReport(ValidationClass $request, VisitRepository $visitRepo)
     {
-        $request->validate([
-            'start'=> 'required',
-            'end'=> 'required',
-        ]);
+        $request->validated();
 
         $start = $request->input('start');
         $end = $request->input('end');
@@ -66,12 +57,9 @@ class ReportController extends Controller
         return $pdf->download('report.pdf');
     }
 
-    public function employeerReport(Request $request, VisitRepository $visitRepo, EmployeerRepository $employRepo)
+    public function employeerReport(ValidationClass $request, VisitRepository $visitRepo, EmployeerRepository $employRepo)
     {
-        $request->validate([
-            'start'=> 'required',
-            'end'=> 'required',
-        ]);
+        $request->validated();
 
         $start = $request->input('start');
         $end = $request->input('end');

@@ -26,9 +26,9 @@ class VisitTableCreate extends Migration
             $table->float('consume_ink');
             $table->float('consume_glove');
             $table->float('consume_liquid');
-            $table->float('consume_healing');
+            $table->float('consume_cream_healing');
             $table->float('consume_soap');
-            $table->float('consume_anesthesia');
+            $table->float('consume_cream_anesthesia');
             $table->float('consume_calque');
             $table->float('consume_holder');
             $table->timestamps();

@@ -27,7 +27,10 @@ class Visit extends Model
         'consume_liquid',
         'consume_ink',
         'consume_mask',
-        'consume_needle'
+        'consume_needle',
+        'consume_glove',
+        'consume_calque',
+        'consume_holder',
     ];
 
     public function employeer(){

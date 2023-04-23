@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\ClientRepository;
 use App\Models\Client;
+use App\Http\Requests\ValidationClass;
 
 class ClientController extends Controller
 {
@@ -15,29 +16,21 @@ class ClientController extends Controller
         return view('admin.studio.clients.list' , ['clients' => $clients]);
     }
 
-    public function create(Request $request)
+    public function create(ValidationClass $request)
     {
-        $request->validate([
-            'name'=> 'required',
-            'surname'=> 'required',
-            'email'=> 'required',
-            'phone'=> 'required',
-        ]);
-
-
-        $client = new Client;
+        $request->validated();
         
+        $client = new Client;      
         $client->name =     $request->input('name');
         $client->surname =  $request->input('surname');
         $client->email =    $request->input('email');
         $client->phone =    $request->input('phone');
-
         $client->save();
 
         return back()->with('success','New client added');
     }
 
-    public function edit(ClientRepository $clientRepo, $id)
+    public function edit(ClientRepository $clientRepo, int $id)
     {
         $client = $clientRepo->find($id);
 
@@ -58,9 +51,9 @@ class ClientController extends Controller
         return back()->with('success','Edited correctly');
     }
 
-    public function delete(ClientRepository $clientRepo, $id) 
+    public function delete(ClientRepository $clientRepo, int $id) 
     {
-        $client = $clientRepo->delete($id);
+        $clientRepo->delete($id);
 
         return back()->with('success','Removed correctly');
     }

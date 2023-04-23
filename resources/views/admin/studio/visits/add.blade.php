@@ -18,18 +18,18 @@
 
                 <div class="form-group">
                     <label for="name">Client</label>
-                    <select class="form-control" name="client">
+                    <select class="form-control" name="client_id" id="client_id">
                         @foreach ($clients as $client)
-                            <option value="{{$client->id}}" class="form-control" name="client">{{$client->name}}</option>
+                            <option value="{{$client->id}}">{{$client->name}}</option>
                         @endforeach
                     </select>
                 </div>
                
                 <div class="form-group">
                     <label for="name">Worker</label>
-                    <select class="form-control" name="employeer">
+                    <select class="form-control" name="employeer_id" id="employeer_id">
                         @foreach ($employees as $employeer)
-                            <option value="{{$employeer->id}}" class="form-control" name="employeer">{{$employeer->name}}</option>
+                            <option value="{{$employeer->id}}">{{$employeer->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -37,9 +37,9 @@
                 <div class="col-4">
                         <div class="form-group">
                             <label for="name">Tattoo</label>
-                            <select class="form-control" name="tattoo">
+                            <select class="form-control" name="tattoo_id" id="tattoo_id">
                                 @foreach ($tattoos as $tattoo)
-                                    <option value="{{$tattoo->id}}" class="form-control" name="tattoo">{{$tattoo->name}}</option>
+                                    <option value="{{$tattoo->id}}">{{$tattoo->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -78,12 +78,12 @@
                                 <input type="text" class="form-control" name="consume_liquid"/>
                     </div>
                     <div class="col-6">
-                            <label for="consume_healing">Healing</label>
-                                <input type="text" class="form-control" name="consume_healing"/>
+                            <label for="consume_cream_healing">Healing</label>
+                                <input type="text" class="form-control" name="consume_cream_healing"/>
                             <label for="consume_soap">Soap</label>
                                 <input type="text" class="form-control" name="consume_soap"/>
-                            <label for="consume_anesthesia">Anesthesia</label>
-                                <input type="text" class="form-control" name="consume_anesthesia"/>
+                            <label for="consume_cream_anesthesia">Anesthesia</label>
+                                <input type="text" class="form-control" name="consume_cream_anesthesia"/>
                             <label for="consume_calque">Calque</label>
                                 <input type="text" class="form-control" name="consume_calque"/>
                             <label for="consume_holder">Holder</label>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\OrderRepository;
 use App\Repositories\EmployeerRepository;
 use App\Models\Order;
+use App\Http\Requests\ValidationClass;
 
 class OrderController extends Controller
 {
@@ -18,26 +19,17 @@ class OrderController extends Controller
         return view('admin.orders.index' , ['orders' => $orders]);
     }
 
-    public function show(EmployeerRepository $employeerRepo,OrderRepository $orderRepo, $id)
+    public function show(EmployeerRepository $employeerRepo,OrderRepository $orderRepo, int $id)
     {
         $order = $orderRepo->find($id);
         $employees = $employeerRepo->getAll();
 
-        return view('admin.orders.edit' , ['order' => $order , 'employees' => $employees]);
+        return view('admin.orders.edit' , compact('order', 'employees'));  
     }
 
-    public function create(Request $request)
+    public function create(ValidationClass $request)
     {
-        $request->validate([
-            'name'=> 'required',
-            'surname'=> 'required',
-            'phone'=> 'required',
-            'email'=> 'required',
-            'width'=> 'required',
-            'height'=> 'required',
-            'place'=> 'required',
-            'color'=> 'required',
-        ]);
+        $request->validated();
 
         $order = new Order;
         
@@ -56,9 +48,9 @@ class OrderController extends Controller
         return back()->with('success','Message has been sent');
     }
 
-    public function delete(OrderRepository $orderRepo, $id) 
+    public function delete(OrderRepository $orderRepo, int $id) 
     {
-        $order = $orderRepo->delete($id);
+        $orderRepo->delete($id);
 
         return back()->with('success','Removed correctly');
     }

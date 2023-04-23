@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\TattooRepository;
-use App\Repositories\VisitRepository;
 use App\Models\Tattoo;
+use App\Http\Requests\ValidationClass;
 
 class TattooController extends Controller
 {
@@ -16,19 +16,16 @@ class TattooController extends Controller
         return view('admin.studio.tattoos.list' , ['tattoos' => $tattoos]);
     }
 
-    public function show(TattooRepository $tattooRepo, $id)
+    public function show(TattooRepository $tattooRepo, int $id)
     {
         $tattoo = $tattooRepo->find($id);
 
         return view('admin.studio.tattoos.profile' , ['tattoo' => $tattoo]);
     }
 
-    public function create(Request $request)
+    public function create(ValidationClass $request)
     {
-        $request->validate([
-            'name'=> 'required',
-            'picture_number'=> 'required',
-        ]);
+        $request->validated();
 
         $tattoo = new Tattoo;
         
@@ -42,7 +39,7 @@ class TattooController extends Controller
         return back()->with('success','New Tattoo added')->with('image', $imageName);
     }
 
-    public function edit(TattooRepository $tattooRepo, $id)
+    public function edit(TattooRepository $tattooRepo, int $id)
     {
         $tattoo = $tattooRepo->find($id);
 
@@ -61,9 +58,9 @@ class TattooController extends Controller
         return back()->with('success','Edited correctly');
     }
 
-    public function delete(TattooRepository $tattooRepo, $id) 
+    public function delete(TattooRepository $tattooRepo, int $id) 
     {
-        $tattoo = $tattooRepo->delete($id);
+        $tattooRepo->delete($id);
 
         return back()->with('success','Removed correctly');
     }

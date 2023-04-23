@@ -19,14 +19,14 @@ class EventController extends Controller
         return view('admin.planning.index', ['events'=> $events]);
     }
 
-    public function show(EventRepository $eventRepo, $id)
+    public function show(EventRepository $eventRepo, int $id)
     {
         $event = $eventRepo->find($id);
 
         return view('admin.planning.profile' , ['event' => $event]);
     }
 
-    public function create(Request $request,OrderRepository $orderRepo,EventRepository $eventRepo)
+    public function create(Request $request, OrderRepository $orderRepo, EventRepository $eventRepo)
     {
 
         $client = new Client;
@@ -55,7 +55,7 @@ class EventController extends Controller
 
         $event->save();
 
-        $order = $orderRepo->delete($request->input('order_id'));
+        $orderRepo->delete($request->input('order_id'));
 
         $events= $eventRepo->getAll();
         
@@ -63,9 +63,9 @@ class EventController extends Controller
 
     }
 
-    public function delete(EventRepository $eventRepo, $id) 
+    public function delete(EventRepository $eventRepo, int $id) 
     {
-        $event = $eventRepo->delete($id);
+        $eventRepo->delete($id);
 
         return back()->with('success','Removed correctly');
     }

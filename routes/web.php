@@ -34,7 +34,7 @@ Route::get('/content_show/{id}', [ContentController::class, 'show']);
 Route::get('/content_add', function () {
     return view('admin.contents.add');
 });
-Route::post('/content_create', [ContentController::class, 'create']);
+Route::post('/content_create', [ContentController::class, 'create'])->name('content_create');
 Route::get('/content_edit/{id}', [ContentController::class, 'edit']);
 Route::post('/content_update', [ContentController::class, 'update']);
 Route::get('/content_delete/{id}', [ContentController::class, 'delete']);
@@ -42,8 +42,8 @@ Route::get('/content_delete/{id}', [ContentController::class, 'delete']);
 // REPORTS
 
 Route::get('/reports', [ReportController::class, 'index']);
-Route::post('/report', [ReportController::class, 'mainReport']);
-Route::post('/employeer_report', [ReportController::class, 'employeerReport']);
+Route::post('/report', [ReportController::class, 'mainReport'])->name('report_create');
+Route::post('/employeer_report', [ReportController::class, 'employeerReport'])->name('report_create');
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Route::get('/clients', [ClientController::class, 'index']);
 Route::get('/client_add', function () {
     return view('admin.studio.clients.add');
 });
-Route::post('/client_create', [ClientController::class, 'create']);
+Route::post('/client_create', [ClientController::class, 'create'])->name('person_create');
 Route::get('/client_edit/{id}', [ClientController::class, 'edit']);
 Route::post('/client_update', [ClientController::class, 'update']);
 Route::get('/client_delete/{id}', [ClientController::class, 'delete']);
@@ -73,7 +73,7 @@ Route::get('/employeer_show/{id}', [EmployeerController::class, 'show']);
 Route::get('/employeer_add', function () {
     return view('admin.studio.employees.add');
 });
-Route::post('/employeer_create', [EmployeerController::class, 'create']);
+Route::post('/employeer_create', [EmployeerController::class, 'create'])->name('employeer_create');
 Route::get('/employeer_edit/{id}', [EmployeerController::class, 'edit']);
 Route::post('/employeer_update', [EmployeerController::class, 'update']);
 Route::get('/employeer_delete/{id}', [EmployeerController::class, 'delete']);
@@ -90,7 +90,7 @@ Route::get('/tattoo_show/{id}', [TattooController::class, 'show']);
 Route::get('/tattoo_add', function () {
     return view('admin.studio.tattoos.add');
 });
-Route::post('/tattoo_create', [TattooController::class, 'create']);
+Route::post('/tattoo_create', [TattooController::class, 'create'])->name('tattoo_create');
 Route::get('/tattoo_edit/{id}', [TattooController::class, 'edit']);
 Route::post('/tattoo_update', [TattooController::class, 'update']);
 Route::get('/tattoo_delete/{id}', [TattooController::class, 'delete']);
@@ -104,8 +104,8 @@ Route::get('/tattoo_delete/{id}', [TattooController::class, 'delete']);
 
 Route::get('/visits', [VisitController::class, 'index']);
 Route::get('/visit_show/{id}', [VisitController::class, 'show']);
-Route::get('/visit_add', [VisitController::class, 'add']);
-Route::post('/visit_create', [VisitController::class, 'create']);
+Route::get('/visit_add', [VisitController::class, 'store']);
+Route::post('/visit_create', [VisitController::class, 'create'])->name('visit_create');
 Route::get('/visit_delete/{id}', [VisitController::class, 'delete']);
 
 /*
@@ -119,7 +119,7 @@ Route::get('/accessories', [AccessoryController::class, 'index']);
 Route::get('/accessory_add', function () {
     return view('admin.studio.accessories.add');
 });
-Route::post('/accessory_create', [AccessoryController::class, 'create']);
+Route::post('/accessory_create', [AccessoryController::class, 'create'])->name('accessory_create');
 Route::get('/accessory_edit/{id}', [AccessoryController::class, 'edit']);
 Route::post('/accessory_update', [AccessoryController::class, 'update']);
 Route::get('/accessory_delete/{id}', [AccessoryController::class, 'delete']);
@@ -135,7 +135,7 @@ Route::get('/orders', [OrderController::class, 'index']);
 Route::get('/order_add', function () {
     return view('subpages.order');
 });
-Route::post('/order_create', [OrderController::class, 'create']);
+Route::post('/order_create', [OrderController::class, 'create'])->name('order_create');
 Route::get('/order_edit/{id}', [OrderController::class, 'show']);
 
 Route::get('/order_delete/{id}', [OrderController::class, 'delete']);
@@ -147,7 +147,7 @@ Route::get('/order_delete/{id}', [OrderController::class, 'delete']);
 |
 */
 Route::get('/planning', [EventController::class, 'index']);
-Route::post('/event_create', [EventController::class, 'create']);
+Route::post('/event_create', [EventController::class, 'create'])->name('event_create');
 Route::get('/event_show/{id}', [EventController::class, 'show']);
 Route::get('/event_delete/{id}', [EventController::class, 'index']);
 
