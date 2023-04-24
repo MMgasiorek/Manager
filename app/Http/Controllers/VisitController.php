@@ -8,7 +8,6 @@ use App\Repositories\ClientRepository;
 use App\Repositories\EmployeerRepository;
 use App\Repositories\TattooRepository;
 use App\Repositories\AccessoryRepository;
-use App\Models\Accessory;
 use App\Http\Requests\ValidationClass;
 
 class VisitController extends Controller
